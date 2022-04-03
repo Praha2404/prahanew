@@ -1,0 +1,18 @@
+﻿---
+- hosts: webservers
+  become: True
+  tasks:
+  - name: Going to install Apache
+    yum:
+      name: httpd
+      state: Present
+  - name: ensure apache is running
+    service:
+      name: httpd
+      state: started
+      enabled: True
+  - name: Start apache server
+    copy:
+      src: index.html
+      dest: /var/www/html/
+      mode: '0777'
